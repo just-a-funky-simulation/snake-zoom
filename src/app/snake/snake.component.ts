@@ -10,12 +10,14 @@ export class SnakeComponent implements OnInit {
   arena = new Array();
   snakeX = 0;
   snakeY = 0;
+  SIZE = 20;
   ngOnInit() {
     this.fillArena();
   }
   up() {
     this.snakeY--;
     this.drawSnake();
+    
   }
   down() {
     this.snakeY++;
@@ -30,6 +32,7 @@ export class SnakeComponent implements OnInit {
     this.drawSnake();
   }
   drawSnake() {
+    this.isDie()
     console.log("inside draw func");
     let rowWhereSnakeSits = this.arena[this.snakeY];
     rowWhereSnakeSits[this.snakeX] = "#800020";
@@ -40,7 +43,16 @@ export class SnakeComponent implements OnInit {
     for (let z = 0; z <= 5; z++) {
       let crumbX = Math.floor(Math.random() * 20);
       let crumbY = Math.floor(Math.random() * 20);
-      this.arena[crumbY] [crumbX] = "Orange"
+      this.arena[crumbY][crumbX] = "Orange";
+    }
+  }
+  isDie() {
+    if (
+      this.snakeX >= this.SIZE ||
+      this.snakeX < 0 ||
+      this.snakeY >= this.SIZE ||
+      this.snakeY < 0 ) {
+      alert("DEad snake")
     }
   }
 
