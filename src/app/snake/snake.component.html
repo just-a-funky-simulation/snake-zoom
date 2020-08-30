@@ -1,0 +1,29 @@
+<table>
+	<tr *ngFor="let row of arena">
+		<td *ngFor="let pixel of row" style="background: {{pixel}}">
+
+		</td>
+	</tr>
+</table>
+
+<button (click)="drawSnake()">draw snake</button>
+<br/>
+
+<table border="1px">
+<tr>
+  <td></td>
+  <td><button (click)="up()">Up</button></td>
+  <td></td>
+</tr>
+<tr>
+  <td><button (click)="left()">Left</button></td>
+  <td></td>
+  <td><button (click)="right()">Right</button></td>
+</tr>
+<tr>
+  <td></td>
+  <td><button (click)="down()">Down</button></td>
+  <td></td>
+</tr>
+
+</table>
