@@ -15,24 +15,33 @@ export class SnakeComponent implements OnInit {
   }
   up() {
     this.snakeY--;
-    this.drawSnake()
+    this.drawSnake();
   }
   down() {
     this.snakeY++;
-    this.drawSnake()
+    this.drawSnake();
   }
   left() {
     this.snakeX--;
-    this.drawSnake()
+    this.drawSnake();
   }
   right() {
     this.snakeX++;
-    this.drawSnake()
+    this.drawSnake();
   }
   drawSnake() {
     console.log("inside draw func");
     let rowWhereSnakeSits = this.arena[this.snakeY];
     rowWhereSnakeSits[this.snakeX] = "#800020";
+  }
+
+  sprinkleCrumb() {
+    Math.floor(Math.random() * 20);
+    for (let z = 0; z <= 5; z++) {
+      let crumbX = Math.floor(Math.random() * 20);
+      let crumbY = Math.floor(Math.random() * 20);
+      this.arena[crumbY] [crumbX] = "Orange"
+    }
   }
 
   fillArena() {
