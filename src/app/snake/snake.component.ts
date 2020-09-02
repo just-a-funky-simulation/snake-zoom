@@ -8,50 +8,54 @@ import { Component, OnInit } from "@angular/core";
 export class SnakeComponent implements OnInit {
   constructor() {}
   arena = new Array();
-  snakeX = 0;
-  snakeY = 0;
+  snakeHead = { x: 0, y: 0 };
+
   SIZE = 20;
 
-  bodyX = [0];
-  bodyY = [0];
+  body = [this.snakeHead];
 
   ngOnInit() {
     this.fillArena();
   }
 
-  up() {  
-    this.snakeY--;
+  up() {
+    this.snakeHead.y--;
     this.drawSnake();
   }
 
   down() {
-    this.snakeY++;
+    this.snakeHead.y++;
     this.drawSnake();
   }
 
   left() {
-    this.snakeX--;
+    this.snakeHead.x--;
     this.drawSnake();
   }
 
   right() {
-    this.snakeX++;
+    this.snakeHead.x++;
     this.drawSnake();
   }
 
   drawSnake() {
     this.isDie();
 
-    // 
+    let newPixel = { x: this.snakeHead.x, y: this.snakeHead.y };
+    if (this.arena[this.snakeHead.y][this.snakeHead.x] == "Orange") {
+      // grow. dont cut tail
+      console.log("grow");
+    } else {
+      // cut tail
+      let oldTail = this.body.pop();
+      // draw grass
+      this.arena[oldTail.y][oldTail.x] = "SEAGREEN";
+    }
 
-
-    let rowWhereSnakeSits = this.arena[this.snakeY];
-    rowWhereSnakeSits[this.snakeX] = "#800020";
-  }
-
-  drawGrass() {
-    let rowWhereSnakeSits = this.arena[this.snakeY];
-    rowWhereSnakeSits[this.snakeX] = "SEAGREEN";
+    // draw new head
+    
+    this.body.unshift(newPixel);
+    this.arena[this.body[0].y][this.body[0].x] = "#800020";
   }
 
   sprinkleCrumb() {
@@ -65,10 +69,10 @@ export class SnakeComponent implements OnInit {
 
   isDie() {
     if (
-      this.snakeX >= this.SIZE ||
-      this.snakeX < 0 ||
-      this.snakeY >= this.SIZE ||
-      this.snakeY < 0
+      this.snakeHead.x >= this.SIZE ||
+      this.snakeHead.x < 0 ||
+      this.snakeHead.y >= this.SIZE ||
+      this.snakeHead.y < 0
     ) {
       alert("DEad snake");
     }
